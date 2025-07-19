@@ -4,9 +4,9 @@ app = Flask(__name__)
 
 # Sample employee data
 employees = [
-    {"id": "E001", "name": "Alice", "status": "Present"},
-    {"id": "E002", "name": "Bob", "status": "Absent"},
-    {"id": "E003", "name": "Charlie", "status": "Present"},
+    {"id": "E001", "name": "Pushkaraj", "status": "Absent"},
+    {"id": "E002", "name": "Chaitanya", "status": "Present"},
+    {"id": "E003", "name": "Sachin", "status": "Present"},
 ]
 
 @app.route('/')

@@ -2,13 +2,17 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = 'employee-attendance-tracker'
+        IMAGE_NAME = 'employee-attendance-app'
+    }
+
+    options {
+        skipDefaultCheckout() // avoids duplicate checkout
     }
 
     stages {
-        stage('Clone Repo') {
+        stage('Checkout Source Code') {
             steps {
-                git 'https://github.com/prd1252/employee-attendance-tracker.git'
+                git credentialsId: 'my-git-credentials', url: 'https://github.com/prd1252/employee-attendance.git', branch: 'main'
             }
         }
 
@@ -22,18 +26,20 @@ pipeline {
 
         stage('Run Docker Compose') {
             steps {
-                sh 'docker-compose down || true'
-                sh 'docker-compose up -d --build'
+                script {
+                    sh 'docker-compose down || true'
+                    sh 'docker-compose up -d'
+                }
             }
         }
     }
 
     post {
-        success {
-            echo '✅ Build and deployment successful!'
-        }
         failure {
-            echo '❌ Build or deployment failed!'
+            echo "❌ Build or deployment failed!"
+        }
+        success {
+            echo "✅ Build and deployment completed successfully."
         }
     }
 }

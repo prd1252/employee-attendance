@@ -5,10 +5,6 @@ pipeline {
         IMAGE_NAME = 'employee-attendance-app'
     }
 
-    options {
-        skipDefaultCheckout() // avoids duplicate checkout
-    }
-
     stages {
         stage('Checkout Source Code') {
             steps {
@@ -18,18 +14,14 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                script {
-                    docker.build("${IMAGE_NAME}")
-                }
+                bat "docker build -t %IMAGE_NAME% ."
             }
         }
 
         stage('Run Docker Compose') {
             steps {
-                script {
-                    sh 'docker-compose down || true'
-                    sh 'docker-compose up -d'
-                }
+                bat 'docker-compose down || exit 0'
+                bat 'docker-compose up -d'
             }
         }
     }

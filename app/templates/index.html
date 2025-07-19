@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Attendance</title>
+</head>
+<body>
+    <h2>Employee Attendance Sheet</h2>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Status</th>
+        </tr>
+        {% for emp in employees %}
+        <tr>
+            <td>{{ emp.id }}</td>
+            <td>{{ emp.name }}</td>
+            <td>{{ emp.status }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
